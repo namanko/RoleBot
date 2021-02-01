@@ -1,7 +1,7 @@
 import discord
 from discord.ext import commands,tasks
 
-bot = commands.Bot(command_prefix="i!", case_insensitive=True)
+bot = commands.Bot(command_prefix="i!")
 
 
 role_ranks={
@@ -23,7 +23,7 @@ async def on_ready():
 		role_list=dict((role.name,role) for role in server.roles)
 
 @bot.event
-async def on_member_join(ctx,*,new_member):
+async def on_member_join(new_member):
 	invites= await message.guild.invites()
 	for member in new_member.guild.members:
 		if member.bot==False:
@@ -37,7 +37,7 @@ async def on_member_join(ctx,*,new_member):
 					for mrole in member.roles:
 						if mrole.name in role_ranks.keys():
 							await bot.remove_roles(member,mrole)
-					await ctx.send(member,"Congratulations  {}, you have been promoted to **{}**!".format(member.mention,role))
+					await message.channel.send(member,"Congratulations  {}, you have been promoted to **{}**!".format(member.mention,role))
 					await member.add_roles(role_list[role])
 
 @bot.event
@@ -48,11 +48,14 @@ async def on_message(message):
 		for invite in await message.guild.invites():
 			if invite.inviter == message.author and invite.max_age==0:
 				total_uses += invite.uses
-				embed.add_field(name='Invite',value='https://discord.gg/'+invite.id)
+				embed.add_field(name='Invite',value=invite.id)
 				embed.add_field(name='Uses',value=invite.uses)
 				embed.add_field(name='Expires',value='Never')
 		embed.add_field(name='__Total Uses__',value=total_uses)
 		await message.channel.send(message.channel,embed=embed)
+	elif message.content=='i!create_invite':
+		link = await message.channel.create_invite(max_age = 0)
+		await message.channel.send("Here is an instant invite to your server: " + str(link))
 
 
 bot.run('ODA1NjU3ODI3MzkyNzQ5NTY5.YBeFUg.u0BE5a606rp7gQugZk-IZ3-t82E')
