@@ -17,7 +17,7 @@ async def on_ready():
 	global role_list
 	print('Logged in as: '+"Rolebot")
 	print('Bot ID: '+str(805657827392749569))
-	await bot.change_presence(activity=discord.Game(name='~invites - list your invites'))
+	await bot.change_presence(activity=discord.Game(name='?invites - list your invites'))
 	print('------\n')
 	for server in bot.guilds:
 		role_list=dict((role.name,role) for role in server.roles)
@@ -42,7 +42,7 @@ async def on_member_join(ctx,*,new_member):
 
 @bot.event
 async def on_message(message):
-	if message.content=='~invites':
+	if message.content=='?invites':
 		total_uses=0
 		embed=discord.Embed(title='__Invites from {}__'.format(message.author.name))
 		for invite in await message.guild.invites():
