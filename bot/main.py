@@ -48,7 +48,7 @@ async def on_message(message):
 		for invite in await message.guild.invites():
 			if invite.inviter == message.author and invite.max_age==0:
 				total_uses += invite.uses
-				embed.add_field(name='Invite',value=invite.id)
+				embed.add_field(name='Invite',value='https://discord.gg/'+invite.id)
 				embed.add_field(name='Uses',value=invite.uses)
 				embed.add_field(name='Expires',value='Never')
 		embed.add_field(name='__Total Uses__',value=total_uses)
