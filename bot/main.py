@@ -58,4 +58,4 @@ async def on_message(message):
 		await message.channel.send("Here is an instant invite to your server: " + str(link))
 
 
-bot.run('ODA1NjU3ODI3MzkyNzQ5NTY5.YBeFUg.u0BE5a606rp7gQugZk-IZ3-t82E')
+bot.run('TOKEN')
